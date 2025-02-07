@@ -4,7 +4,6 @@ export const styles = {
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    // padding: 12,
   }, 
   item: {
     borderWidth: 1,
@@ -36,6 +35,4 @@ export const styles = {
     gap: 10,
     flexDirection: 'row',
   },
-
-
 }

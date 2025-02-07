@@ -3,63 +3,108 @@ import { styles } from './editProfile.style';
 import { AuthContext } from '../../context/auth';
 import { useContext, useState } from 'react';
 import Button from '../../components/button/Button';
+import ModalCustom from '../../components/modal/Modal';
 import API from '../../constants/api';
 
 export default function ResetPassword(props) {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext); // 🔹 Obtém os dados do usuário
 
-  const [newPassword, setNewPassword] = useState(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
 
   async function editPassword() {
-    try {
-      if (newEmail !== user.email && newEmail !== null) user.email = newEmail;
-      if (newWhatsapp !== user.whatsapp && newWhatsapp !== null) user.whatsapp = newWhatsapp;
-      const response = await API.put(`/users/${user.id_user}`, { email: user.email, whatsapp: user.whatsapp });
-     
-      if (response.data?.id_user) {
-        Alert.alert('Perfil atualizado com sucesso!');
-        setUser(response.data);
-        console.log('Novo usuário:', response.data);
-        
-
-        // 🔹 Buscar os dados atualizados
-      const updatedUser = await API.get(`/users/profile`);
-      
-      if (updatedUser.data) {
-        setUser(updatedUser.data); // 🔹 Atualiza o usuário no contexto com os dados completos
-      }
-
-        // 🔹 Aguarda um pouco para garantir atualização antes da navegação
-        setTimeout(() => {
-          props.navigation.navigate('main', { screen: 'Perfil' });        }, 300);
-      }
-    } catch (error) {
-      console.log('Erro ao atualizar perfil:', error);
+    if (!newPassword || !confirmPassword) {
+      return Alert.alert('Erro', 'Preencha todos os campos.');
     }
+
+    if (newPassword !== confirmPassword) {
+      return Alert.alert('Erro', 'As senhas não coincidem.');
+    }
+
+    setIsModalVisible(true); // Exibe o modal de confirmação
+  }
+
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   }
   
+  const handleConfirm = async () => {
+    setIsModalVisible(false); // Oculta o modal
+
+    try {
+      const response = await API.put(`/users/${user.id_user}/senha`, {
+        password: newPassword,
+      });
+
+      if (response.status === 200) {
+        Alert.alert('Sucesso', 'Senha alterada com sucesso!');
+        props.navigation.goBack();
+      } else {
+        console.error('Resposta de erro:', response);
+        Alert.alert(
+          'Erro',
+          'Não foi possível alterar a senha. Status:' + response.status,
+        );
+      }
+    } catch (error) {
+      console.error('Erro ao alterar senha:', error);
+      Alert.alert('Erro', 'Não foi possível alterar a senha. ' + error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.title}>Nova senha</Text>
         <TextInput
-          value={newEmail}
+          value={newPassword}
           style={styles.text}
-          onChangeText={(e) => setNewEmail(e)}
+          secureTextEntry={true} // 🔹 Oculta a senha
+          onChangeText={setNewPassword}
         />
       </View>
       <View style={styles.item}>
         <Text style={styles.title}>Confirmar nova senha</Text>
         <TextInput
-        value={newWhatsapp}
+          value={confirmPassword}
           style={styles.text}
-          onChangeText={(e) => setNewPassword(e)}
+          secureTextEntry={true} // 🔹 Oculta a senha
+          onChangeText={setConfirmPassword}
         />
       </View>
-    
+
       <View style={styles.buttons}>
-        <Button title="Salvar" type="primary" onPress={editPassword}/>
+        <Button title="Salvar" type="primary" onPress={editPassword} />
       </View>
+
+      <ModalCustom isVisible={isModalVisible}
+  onCancel={handleCancel}
+  onConfirm={handleConfirm}
+  text="Tem certeza que deseja alterar sua senha?"
+  cancelButtonText="Não"
+  confirmButtonText="Sim"/>
+
+      {/* <Modal isVisible={isModalVisible} style={styles.modal}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalText}>Tem certeza que deseja alterar sua senha?</Text>
+          <View style={styles.modalButtons}>
+            <Button
+              title="Não"
+              type="danger"
+              onPress={handleCancel}
+              style={styles.modalButton} // Estilo para o *container* do botão
+            />
+            <Button
+              title="Sim"
+              type="primary"
+              onPress={handleConfirm}
+              style={styles.modalButton} // Estilo para o *container* do botão
+            />
+          </View>
+        </View>
+      </Modal> */}
     </View>
   );
-  }
+}
