@@ -20,7 +20,7 @@ export default function Appointment(props) {
         </View>
         <View style={styles.containerButton}>
           <Button
-            title="Cancelar Reserva"
+            title="Cancelar Agendamento"
             type="danger"
             onPress={() => props.onPress(props.id_appointment)}
           />

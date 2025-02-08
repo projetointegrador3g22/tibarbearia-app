@@ -6,6 +6,7 @@ function AuthProvider(props) {
   const [user, setUser] = useState({});
 
   function logout() {
+    API.defaults.headers.common['Authorization'] = ``;
     setUser({});
   }
 
