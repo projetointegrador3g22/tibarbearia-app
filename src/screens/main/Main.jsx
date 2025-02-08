@@ -28,7 +28,6 @@ export default function Main() {
                 style={{ opacity: focused ? 1 : 0.3 }}
               />
             );
-            // icon.homeIcon;
           },
           tabBarShowLabel: false,
         }}

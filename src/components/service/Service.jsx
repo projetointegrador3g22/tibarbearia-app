@@ -15,7 +15,11 @@ export default function Service(props) {
         </Text>
       </View>
       <View style={styles.containerButton}>
-        <Button title="Agendar" onPress={() => props.onPress(props.id_service)} disabled={false} />
+        <Button
+          title="Agendar"
+          onPress={() => props.onPress(props.id_service)}
+          disabled={false}
+        />
       </View>
     </View>
   );

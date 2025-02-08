@@ -3,7 +3,7 @@ import { styles } from './editProfile.style';
 import { AuthContext } from '../../context/auth';
 import { useContext, useState } from 'react';
 import Button from '../../components/button/Button';
-import ModalCustom from '../../components/modal/Modal';
+import ModalCustom from '../../components/modal/ModalCustom';
 import API from '../../constants/api';
 
 export default function ResetPassword(props) {
@@ -25,11 +25,10 @@ export default function ResetPassword(props) {
     setIsModalVisible(true); // Exibe o modal de confirmação
   }
 
-
   const handleCancel = () => {
     setIsModalVisible(false);
-  }
-  
+  };
+
   const handleConfirm = async () => {
     setIsModalVisible(false); // Oculta o modal
 
@@ -79,32 +78,14 @@ export default function ResetPassword(props) {
         <Button title="Salvar" type="primary" onPress={editPassword} />
       </View>
 
-      <ModalCustom isVisible={isModalVisible}
-  onCancel={handleCancel}
-  onConfirm={handleConfirm}
-  text="Tem certeza que deseja alterar sua senha?"
-  cancelButtonText="Não"
-  confirmButtonText="Sim"/>
-
-      {/* <Modal isVisible={isModalVisible} style={styles.modal}>
-        <View style={styles.modalContent}>
-          <Text style={styles.modalText}>Tem certeza que deseja alterar sua senha?</Text>
-          <View style={styles.modalButtons}>
-            <Button
-              title="Não"
-              type="danger"
-              onPress={handleCancel}
-              style={styles.modalButton} // Estilo para o *container* do botão
-            />
-            <Button
-              title="Sim"
-              type="primary"
-              onPress={handleConfirm}
-              style={styles.modalButton} // Estilo para o *container* do botão
-            />
-          </View>
-        </View>
-      </Modal> */}
+      <ModalCustom
+        isVisible={isModalVisible}
+        onCancel={handleCancel}
+        onConfirm={handleConfirm}
+        text="Tem certeza que deseja alterar sua senha?"
+        cancelButtonText="Cancelar"
+        confirmButtonText="Confirmar"
+      />
     </View>
   );
 }

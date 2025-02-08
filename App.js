@@ -4,7 +4,6 @@ import Routes from './src/routes/routes';
 import { AuthProvider } from './src/context/auth';
 
 export default function App() {
-  const name = 'Gustavo';
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>

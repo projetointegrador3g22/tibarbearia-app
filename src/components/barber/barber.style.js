@@ -13,9 +13,8 @@ export const styles = {
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
-  avatar:{
+  avatar: {
     width: 50,
     height: 60,
     marginRight: 8,
@@ -30,5 +29,4 @@ export const styles = {
     fontSize: FONT_SIZE.sm,
     color: COLORS.gray3,
   },
-
-}
+};

@@ -5,7 +5,7 @@ export const styles = {
     flex: 1,
     backgroundColor: COLORS.white,
     padding: 12,
-  }, 
+  },
 
   text: {
     fontSize: FONT_SIZE.md,
@@ -13,6 +13,4 @@ export const styles = {
     marginBottom: 15,
     marginLeft: 10,
   },
-
-
-}
+};

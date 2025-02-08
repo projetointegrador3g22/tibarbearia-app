@@ -4,11 +4,9 @@ export const styles = {
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    // padding: 12,
-    // paddingTop: 27
   },
   banner: {
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.gray5,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,
@@ -17,8 +15,7 @@ export const styles = {
   name: {
     textAlign: 'center',
     fontSize: FONT_SIZE.md,
-    // color: COLORS.white,
-    fontWeight: 'bold',
+    fontWeight: 'semibold',
     marginTop: 5,
   },
 

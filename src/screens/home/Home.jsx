@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import API from '../../constants/api';
 
 export default function Home(props) {
-
   const [barbers, setBarbers] = useState([]);
 
   function ClickBarber(id, name, avatar) {
@@ -16,15 +15,14 @@ export default function Home(props) {
   async function getBarbers() {
     try {
       const response = await API.get('/barbers');
-      
-      if(response.data){
+
+      if (response.data) {
         setBarbers(response.data);
       }
     } catch (error) {
-      if(error.response?.data.error){
+      if (error.response?.data.error) {
         Alert.alert(error.response.data.error);
-      }else {
-
+      } else {
         Alert.alert('Erro ao buscar barbeiros');
       }
     }
@@ -42,7 +40,12 @@ export default function Home(props) {
         keyExtractor={(barber) => barber.id_barber}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <Barber name={item.name} avatar={icon.logo} id={item.id_barber} onPress={ClickBarber}/>
+          <Barber
+            name={item.name}
+            avatar={icon.logo}
+            id={item.id_barber}
+            onPress={ClickBarber}
+          />
         )}
       />
     </View>

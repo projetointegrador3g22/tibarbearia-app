@@ -4,7 +4,7 @@ export const styles = {
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-  }, 
+  },
   item: {
     borderWidth: 1,
     borderColor: COLORS.gray4,
@@ -29,10 +29,10 @@ export const styles = {
     width: '30%',
     margin: 'auto',
   },
-  
+
   containerButton: {
     alignSelf: 'center',
     gap: 10,
     flexDirection: 'row',
   },
-}
+};

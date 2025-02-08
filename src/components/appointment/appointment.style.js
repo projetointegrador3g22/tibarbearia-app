@@ -21,7 +21,7 @@ export const styles = {
   container: {
     marginTop: 10,
     flexDirection: 'row',
-    alignItens: 'center',  
+    alignItens: 'center',
   },
   containerBooking: {
     flex: 1,

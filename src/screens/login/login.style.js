@@ -6,11 +6,12 @@ export const styles = {
     backgroundColor: COLORS.white,
     justifyContent: 'space-between',
     padding: 50,
-  }, 
+  },
 
   containerLogo: {
     alignItems: 'center',
   },
+
   logo: {
     width: 120,
     height: 160,
@@ -33,5 +34,5 @@ export const styles = {
 
   footerLink: {
     color: COLORS.blue,
-  }
-}
+  },
+};

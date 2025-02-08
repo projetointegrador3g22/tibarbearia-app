@@ -1,6 +1,6 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { styles } from './appointment.style';
-import Button from '../button/Button'
+import Button from '../button/Button';
 
 export default function Appointment(props) {
   return (
@@ -19,7 +19,11 @@ export default function Appointment(props) {
           </View>
         </View>
         <View style={styles.containerButton}>
-          <Button title= "Cancelar Reserva" type= 'danger' onPress={() => props.onPress(props.id_appointment)}/>
+          <Button
+            title="Cancelar Reserva"
+            type="danger"
+            onPress={() => props.onPress(props.id_appointment)}
+          />
         </View>
       </View>
     </View>

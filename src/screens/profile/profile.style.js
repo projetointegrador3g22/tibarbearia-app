@@ -4,8 +4,7 @@ export const styles = {
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    // padding: 12,
-  }, 
+  },
   item: {
     borderWidth: 1,
     borderColor: COLORS.gray4,
@@ -29,14 +28,12 @@ export const styles = {
     justifyContent: 'center',
     width: '40%',
     margin: 'auto',
-    gap: 20
+    gap: 20,
   },
-  
+
   containerButton: {
     alignSelf: 'center',
     gap: 10,
     flexDirection: 'row',
   },
-
-
-}
+};

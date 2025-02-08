@@ -2,7 +2,6 @@ import { COLORS, FONT_SIZE } from '../../constants/theme';
 
 export const styles = {
   btn: {
-
     padding: 12,
     width: '100%',
     borderRadius: 6,
@@ -17,6 +16,6 @@ export const styles = {
   text: {
     color: COLORS.white,
     fontSize: FONT_SIZE.md,
-    textAlign: 'center'
-  }
-}
+    textAlign: 'center',
+  },
+};

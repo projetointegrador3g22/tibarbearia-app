@@ -26,4 +26,4 @@ export const styles = {
   containerButton: {
     width: 100,
   },
-}
+};

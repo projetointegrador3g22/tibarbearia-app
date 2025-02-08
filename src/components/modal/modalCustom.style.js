@@ -26,10 +26,4 @@ export const styles = {
     flexDirection: 'row',
     gap: 10,
   },
-  modalButton: {
-    // flex: 1, // Cada botão ocupa o espaço disponível
-    // marginHorizontal: 10, // Espaçamento entre os botões
-    // minWidth: 100, // Largura mínima para evitar que o botão fique muito pequeno
-    // Outros estilos que você já usa para o botão, como padding, borderRadius, etc.
-  },
 };
