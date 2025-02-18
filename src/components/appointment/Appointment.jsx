@@ -3,6 +3,7 @@ import { styles } from './appointment.style';
 import Button from '../button/Button';
 
 export default function Appointment(props) {
+  const dateFormat = new Date(`${props.date}T${props.time}`);
   return (
     <View style={styles.appointment}>
       <Text style={styles.name}>{props.name}</Text>
@@ -11,7 +12,7 @@ export default function Appointment(props) {
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <View style={styles.icon}>{props.dateIcon}</View>
-            <Text style={styles.date}>{props.date}</Text>
+            <Text style={styles.date}>{dateFormat.toLocaleDateString()}</Text>
           </View>
           <View style={styles.booking}>
             <View style={styles.icon}>{props.timeIcon}</View>

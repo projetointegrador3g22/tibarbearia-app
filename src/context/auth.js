@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import API from '../constants/api';
 
 const AuthContext = createContext({});
 
