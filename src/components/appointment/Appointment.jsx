@@ -4,10 +4,16 @@ import Button from '../button/Button';
 
 export default function Appointment(props) {
   const formattedDate = props.date && props.time ? new Date(`${props.date}T${props.time}`) : null; // Verifica se props.date e props.time existem
+
+  const formattedPrice = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(props.price)
+
   return (
     <View style={styles.appointment}>
-      <Text style={styles.name}>{props.name}</Text>
-      <Text style={styles.service}>{props.services}</Text>
+      <Text style={styles.name}>{`${props.name}`}</Text>
+      <Text style={styles.service}>{`${props.services} - ${formattedPrice}`}</Text>
       <View style={styles.container}>
         <View style={styles.containerBooking}>
           <View style={styles.booking}>

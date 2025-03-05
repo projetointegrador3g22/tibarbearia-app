@@ -16,9 +16,15 @@ export default function Profile(props) {
   async function handleDeleteProfile() {
     try {
       const response = await API.delete(`/users/${user.id_user}`);
-      if (response.data?.id_user) {
+      // if (response.data?.id_user) {
+      //   Alert.alert('Perfil excluído com sucesso!');
+      //   logout();
+      // }
+      if (response.status === 200) { 
         Alert.alert('Perfil excluído com sucesso!');
         logout();
+      } else {
+        Alert.alert('Erro ao excluir perfil. Tente novamente.');
       }
     } catch (error) {
       console.log('Erro ao excluir perfil:', error);

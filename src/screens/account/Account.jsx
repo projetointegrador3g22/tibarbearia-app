@@ -59,15 +59,15 @@ export default function Account(props) {
           style={styles.input}
           onChangeText={(e) => setName(e)}
         />
+          <TextInput
+            placeholder="Whatsapp (ex.:11999999999)"
+            style={styles.input}
+            onChangeText={(e) => setWhatsapp(e)}
+          />
         <TextInput
           placeholder="E-mail"
           style={styles.input}
           onChangeText={(e) => setEmail(e)}
-        />
-        <TextInput
-          placeholder="Whatsapp (ex.:11999999999)"
-          style={styles.input}
-          onChangeText={(e) => setWhatsapp(e)}
         />
         <TextInput
           placeholder="Senha"

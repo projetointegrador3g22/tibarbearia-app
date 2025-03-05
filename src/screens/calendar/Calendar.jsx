@@ -74,6 +74,7 @@ export default function Calendar() {
             services={item.service}
             date={item.date}
             time={item.hour}
+            price={item.price}
             dateIcon={icon.dateIcon}
             timeIcon={icon.timeIcon}
             onPress={() => showModal(item.id_appointment)} // Passa o ID para showModal}

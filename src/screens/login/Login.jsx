@@ -30,6 +30,7 @@ export default function Login(props) {
         ] = `Bearer ${response.data.token}`;
         setUser(response.data);
       }
+      console.log('Login efetuado com sucesso:', response.data);
     } catch (error) {
       console.log('Erro no login:', error);
 
