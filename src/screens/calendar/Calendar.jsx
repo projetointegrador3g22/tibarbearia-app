@@ -64,23 +64,23 @@ export default function Calendar() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={appointments}
-        keyExtractor={(appointment) => appointment.id_appointment}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Appointment
-            id_appointment={item.id_appointment}
-            name={item.barber}
-            services={item.service}
-            date={item.date}
-            time={item.hour}
-            price={item.price}
-            dateIcon={icon.dateIcon}
-            timeIcon={icon.timeIcon}
-            onPress={() => showModal(item.id_appointment)} // Passa o ID para showModal}
-          />
-        )}
-      />
+      data={appointments}
+      keyExtractor={(appointment) => appointment.id_appointment}
+      showsVerticalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <Appointment
+          id_appointment={item.id_appointment}
+          name={item.barber}
+          services={item.service}
+          date={item.date}
+          time={item.hour}
+          price={item.total_price}
+          dateIcon={icon.dateIcon}
+          timeIcon={icon.timeIcon}
+          onPress={() => showModal(item.id_appointment)}
+        />
+      )}
+    />
 
       <ModalCustom
         isVisible={isModalVisible}

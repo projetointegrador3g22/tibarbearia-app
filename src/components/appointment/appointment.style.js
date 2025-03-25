@@ -1,6 +1,15 @@
 import { COLORS, FONT_SIZE } from '../../constants/theme';
 
 export const styles = {
+  top:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  } ,
+  price: {
+    fontSize: FONT_SIZE.sm,
+    color: COLORS.gray1,
+  },
   appointment: {
     flex: 1,
     backgroundColor: COLORS.white,
@@ -11,7 +20,6 @@ export const styles = {
   name: {
     fontSize: FONT_SIZE.md,
     color: COLORS.gray1,
-    marginBottom: 2,
   },
   service: {
     fontSize: FONT_SIZE.sm,

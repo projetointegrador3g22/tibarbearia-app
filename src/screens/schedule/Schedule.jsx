@@ -1,52 +1,45 @@
-import { Alert, Text, View } from 'react-native';
+import { Alert, Text, View, TouchableOpacity } from 'react-native';
 import { styles } from './schedule.style';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { ptBR } from '../../constants/calendar';
-import { useEffect, useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react';
 import Button from '../../components/button/Button';
 import API from '../../constants/api';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 
 LocaleConfig.locales['pt-br'] = ptBR;
 LocaleConfig.defaultLocale = 'pt-br';
 
 export default function Schedule(props) {
-  //Projeto calendário: https://github.com/wix/react-native-calendars
-
   const id_barber = props.route.params.id_barber;
-  const id_service = props.route.params.id_service;
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split('T')[0],
-  );
+  const selectedServices = props.route.params.selectedServices;
+  const totalPrice = props.route.params.totalPrice;
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedHour, setSelectedHour] = useState('');
-  const [hours, setHours] = useState([]);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  async function getHours() {
-    try {
-      const response = await API.get(`/appointments/hours`);
-      console.log("Horários recebidos:", response.data);
-      setHours(response.data);
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
 
-      if (response.data.length > 0){
-        setSelectedHour(response.data[0].value);
-      }
-    } catch (error) {
-      console.error('Erro ao buscar horários:', error);
-      setHours([]);
-    }
-  }
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
 
-  useEffect(() => {
-    getHours();
-  }, [selectedDate]);
+  const handleConfirm = (time) => {
+    setSelectedHour(moment(time).format('HH:mm'));
+    hideTimePicker();
+  };
 
   async function ClickBooking() {
     try {
-      const response = await API.post(`/appointments`, {
+      const response = await API.post('/appointments', {
         id_barber,
-        id_service,
+        id_services: selectedServices,
         booking_date: selectedDate,
         booking_hour: selectedHour,
+        total_price: totalPrice,
       });
       if (response.data?.id_appointment) {
         Alert.alert('Agendamento realizado com sucesso!');
@@ -75,27 +68,25 @@ export default function Schedule(props) {
           }}
           minDate={new Date().toDateString()}
         />
-        <View>
-          <Text style={styles.textHour}>Horário</Text>
-        </View>
-        <View>
-         
-          <Picker
-            selectedValue={selectedHour}
-            onValueChange={(itemValue) => setSelectedHour(itemValue)}
-          >
-            {hours.length > 0 ? (
-              hours.map((hour) => (
-                <Picker.Item key={hour.id_hour} label={hour.value} value={hour.value} />
-              ))
-            ) : (
-              <Picker.Item label="Nenhum horário disponível" value="" />
-            )}
-          </Picker>
-        </View>
+       
+          <View style={styles.containerHour}>
+            <TouchableOpacity onPress={showTimePicker} style={styles.input}>
+              <Text style={styles.textHour}>{ selectedHour || 'Selecione o horário'}</Text>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isTimePickerVisible}
+              mode="time"
+              onConfirm={handleConfirm}
+              onCancel={hideTimePicker}
+            />
+          </View>
+        
       </View>
       <View>
-        <Button title="Confirmar agendamento" onPress={ClickBooking} />
+        <Text style={{ textAlign: 'center', marginBottom: 10 }}>
+          Total: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalPrice)}
+        </Text>
+        <Button title="Confirmar agendamento" onPress={ClickBooking} disabled={!selectedHour} />
       </View>
     </View>
   );

@@ -17,9 +17,13 @@ export const styles = {
     arrowColor: COLORS.blue,
   },
   textHour: {
-    fontSize: FONT_SIZE.lg,
-    fontWeight: 'bold',
+    fontSize: FONT_SIZE.xl,
+    fontWeight: 'semibold',
     color: COLORS.gray2,
     marginTop: 20,
+  },
+
+  containerHour: {
+    margin: 'auto',
   },
 };

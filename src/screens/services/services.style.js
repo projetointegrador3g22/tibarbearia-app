@@ -5,6 +5,7 @@ export const styles = {
     flex: 1,
     backgroundColor: COLORS.white,
   },
+
   banner: {
     backgroundColor: COLORS.gray5,
     justifyContent: 'center',
@@ -12,6 +13,7 @@ export const styles = {
     paddingTop: 10,
     paddingBottom: 25,
   },
+
   name: {
     textAlign: 'center',
     fontSize: FONT_SIZE.md,
@@ -19,21 +21,61 @@ export const styles = {
     marginTop: 5,
   },
 
-  item: {
-    marginBottom: 15,
-    marginLeft: 10,
-  },
-
-  title: {
+  servicesTitle: {
     fontSize: FONT_SIZE.md,
-    color: COLORS.gray2,
-    marginBottom: 5,
+    color: COLORS.gray1,
+    padding: 10,
+    alignSelf: 'center',
   },
 
-  text: {
-    fontSize: FONT_SIZE.lg,
-    color: COLORS.gray1,
+  containerCheck: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: COLORS.gray4,
+  },
+
+  check: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: COLORS.gray3,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  checked: {
+    color: 'white',
+  },
+
+  service: {
+    fontSize: FONT_SIZE.md,
+    color: COLORS.gray3,
+  },
+
+  containerTotalPrice: {
+    padding: 20,
+  },
+
+  totalPrice: {
     textAlign: 'center',
-    fontWeight: 'semibold',
+    marginBottom: 10,
+  },
+
+  button: {
+    backgroundColor: '#2E66E7',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: '80%',
+    alignSelf: 'center',
+  },
+
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: FONT_SIZE.md,
   },
 };
