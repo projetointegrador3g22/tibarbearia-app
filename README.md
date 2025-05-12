@@ -36,7 +36,7 @@ Um QR Code será exibido no terminal, então siga os passos a seguir:
 Obs.: tanto o celular quanto seu PC ou notebook precisam estar conectados à mesma rede de internet para a aplicação funcionar.
 ```
 
-Para fins de teste, utilize as credenciais abaixo ao fazer login:
+Para fins de teste, utilize as credenciais já criadas abaixo ao fazer login:
 
 Cliente
 ```bash
@@ -53,6 +53,7 @@ Admin
 email => admin@admin.com
 senha => 123456
 ```
+Ou, se preferir, pode fazer cadastro clicando em "Criar conta agora!".
 
 Alguns ajustes ainda estão em andamento. Por esse motivo algumas funcionalidades poderão falhar.
 
