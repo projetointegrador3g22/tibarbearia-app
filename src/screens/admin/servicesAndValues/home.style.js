@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE } from '../../constants/theme';
+import { COLORS, FONT_SIZE } from '../../../constants/theme';
 
 export const styles = {
   container: {
@@ -17,6 +17,15 @@ export const styles = {
     fontSize: FONT_SIZE.md,
     color: COLORS.gray2,
     marginBottom: 5,
+  },
+
+  plus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: COLORS.gray1,
+    padding: 10,
+    gap: 10 
   },
 
   text: {
@@ -72,5 +81,20 @@ export const styles = {
     fontWeight: 'bold',
     fontSize: FONT_SIZE.md,
   },
+
+  editContainer: {
+  width: '100%',
+  marginBottom: 15,
+},
+input: {
+   borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  padding: 12,
+  fontSize: 16,
+  backgroundColor: '#fff',
+  // minHeight: 20,
+  marginBottom: 10,  
+}
 
 };

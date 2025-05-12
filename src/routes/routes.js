@@ -6,5 +6,5 @@ import RoutesPrivate from './routesPrivate';
 export default function Routes() {
   const { user } = useContext(AuthContext);
 
-  return user.id_user ? <RoutesPrivate /> : <RoutesOpen />;
+  return user ? <RoutesPrivate /> : <RoutesOpen />;
 }

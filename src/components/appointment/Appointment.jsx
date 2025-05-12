@@ -13,7 +13,7 @@ export default function Appointment(props) {
   return (
     <View style={styles.appointment}>
       <View style={styles.top}>
-      <Text style={styles.name}>{props.name}</Text>
+      <View style={styles.nameContainer}><Text style={styles.name}>{props.personIcon}</Text><Text style={styles.name}>{props.name}</Text></View>
       <Text style={styles.price}>{formattedPrice}</Text>
 
       </View>
@@ -30,8 +30,25 @@ export default function Appointment(props) {
           </View>
         </View>
         <View style={styles.containerButton}>
+          {props.check && (
+            <Button
+            style={[styles.button, { backgroundColor: 'green' }]}
+              title={props.check}
+              // type="danger"
+              onPress={() => props.onPress(props.id_appointment)}
+            />
+          )}
+          {props.edit && (
+            <Button
+            style={styles.button}
+            title={props.edit}
+            // type="danger"
+            onPress={() => props.onPress(props.id_appointment)}
+          />
+          )}
           <Button
-            title="Cancelar Agendamento"
+          style={styles.button}
+            title={props.delete}
             type="danger"
             onPress={() => props.onPress(props.id_appointment)}
           />

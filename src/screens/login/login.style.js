@@ -10,18 +10,33 @@ export const styles = {
 
   containerLogo: {
     alignItems: 'center',
+    gap: 10,
   },
 
   logo: {
-    width: 120,
-    height: 160,
+    width: 80,
+    height: 120,
   },
 
-  input: {
+  inputContainer: {
+    
+    flexDirection: 'row',
+    alignItems: 'center',
+    
     backgroundColor: COLORS.gray5,
     padding: 10,
     borderRadius: 6,
     marginBottom: 15,
+    height: 50,
+    gap: 6
+  },
+  
+  input: {
+    flex: 1,
+    // backgroundColor: COLORS.gray5,
+    // padding: 10,
+    // borderRadius: 6,
+    // marginBottom: 15,
     height: 50,
   },
 

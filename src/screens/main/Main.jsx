@@ -2,40 +2,27 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from '../profile/Profile';
 import Calendar from '../calendar/Calendar';
 import Home from '../home/Home';
-import { Entypo, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import Admin from '../admin/Admin';
+import {
+  Entypo,
+  FontAwesome,
+  FontAwesome5,
+  Ionicons,
+} from '@expo/vector-icons';
+import { AuthContext } from '../../context/auth';
+import { useContext } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 export default function Main() {
+  const { user } = useContext(AuthContext);
   return (
     <Tab.Navigator>
-      <Tab.Screen
-        name="Agende seu horário"
-        component={Home}
-        options={{
-          headerTitleAlign: 'center',
-          // headerTitle: () => {
-          //   return (
-          //     <Image source={icon.logo} style={{ width: 45, height: 55 }} />
-          //   );
-          // },
-          tabBarIcon: ({ focused }) => {
-            return (
-              <Entypo
-                name="home"
-                size={25}
-                color="black"
-                style={{ opacity: focused ? 1 : 0.3 }}
-              />
-            );
-          },
-          tabBarShowLabel: false,
-        }}
-      />
       <Tab.Screen
         name="Agendamentos"
         component={Calendar}
         options={{
+          headerTitleStyle: { fontSize: 20 },
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused }) => {
             return (
@@ -52,9 +39,30 @@ export default function Main() {
         }}
       />
       <Tab.Screen
+        name={user.perfil === 'Cliente' ? 'Barbeiros' : 'Serviços Prestados'}
+        component={Home}
+        options={{
+          headerTitleStyle: { fontSize: 20 },
+          headerTitleAlign: 'center',
+          tabBarIcon: ({ focused }) => {
+            return (
+              <FontAwesome
+                name="cut"
+                size={25}
+                color="black"
+                style={{ opacity: focused ? 1 : 0.3 }}
+              />
+            );
+          },
+          tabBarShowLabel: false,
+        }}
+      />
+
+      <Tab.Screen
         name="Perfil"
         component={Profile}
         options={{
+          headerTitleStyle: { fontSize: 20 },
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused }) => {
             return (
@@ -69,6 +77,27 @@ export default function Main() {
           tabBarShowLabel: false,
         }}
       />
+      {user.perfil === 'Barbeiro' && (
+        <Tab.Screen
+          name="Gerenciamento"
+          component={Admin}
+          options={{
+            headerTitleStyle: { fontSize: 20 },
+            headerTitleAlign: 'center',
+            tabBarIcon: ({ focused }) => {
+              return (
+                <FontAwesome5
+                  name="tools"
+                  size={25}
+                  color="black"
+                  style={{ opacity: focused ? 1 : 0.3 }}
+                />
+              );
+            },
+            tabBarShowLabel: false,
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 }

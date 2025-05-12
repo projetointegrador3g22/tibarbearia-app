@@ -1,11 +1,11 @@
 import { Alert, Text, View, TextInput } from 'react-native';
 import { styles } from './profile.style';
-import { AuthContext } from '../../context/auth';
+import { AuthContext } from '../../../context/auth';
 import { useContext, useState } from 'react';
-import Button from '../../components/button/Button';
-import ModalCustom from '../../components/modal/ModalCustom';
+import Button from '../../../components/button/Button';
+import ModalCustom from '../../../components/modal/ModalCustom';
 
-export default function Profile(props) {
+export default function AddBarber(props) {
   const { user, deleteAccount, logout } = useContext(AuthContext);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -16,8 +16,11 @@ export default function Profile(props) {
   const [showPasswordInput, setShowPasswordInput] = useState(false);
 
   async function handleDeleteProfile() {
-      if (!password) {
-      Alert.alert('Atenção', 'Por favor, digite sua senha para confirmar a exclusão');
+    if (!password) {
+      Alert.alert(
+        'Atenção',
+        'Por favor, digite sua senha para confirmar a exclusão',
+      );
       return;
     }
     setIsDeleting(true);
@@ -31,8 +34,11 @@ export default function Profile(props) {
       if (error.code === 'auth/wrong-password') {
         errorMessage = 'Senha incorreta. Tente novamente.';
       }
-      if (error.code === 'FirebaseError: Missing or insufficient permissions.') {
-        errorMessage = 'Permissões de exclusão insuficientes no vanco de dados.';
+      if (
+        error.code === 'FirebaseError: Missing or insufficient permissions.'
+      ) {
+        errorMessage =
+          'Permissões de exclusão insuficientes no vanco de dados.';
       }
       Alert.alert('Erro', errorMessage);
     } finally {
@@ -45,13 +51,13 @@ export default function Profile(props) {
   const showModal = (action) => {
     setModalAction(action);
     setPassword(''); // Resetar senha ao abrir o modal
-    
+
     if (action === 'logout') {
       setModalText('Tem certeza que deseja sair da sua conta?');
       setShowPasswordInput(false);
     } else if (action === 'delete') {
       setModalText(
-        `Para excluir sua conta permanentemente,\ndigite sua senha abaixo:`
+        `Para excluir sua conta permanentemente,\ndigite sua senha abaixo:`,
       );
       setShowPasswordInput(true); // Mostra o campo de senha para confirmação
     }
@@ -76,40 +82,24 @@ export default function Profile(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.item}>
-        <Text style={styles.title}>Nome</Text>
-        <Text style={styles.text}>{user.nome}</Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.title}>E-mail de contato</Text>
-        <Text style={styles.text}>{user.emailContato}</Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.title}>E-mail de acesso</Text>
-        <Text style={styles.text}>{user.emailAcesso}</Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.title}>Whatsapp</Text>
-        <Text style={styles.text}>{user.whatsapp}</Text>
-      </View>
-
+      
       <View style={styles.buttons}>
         <Button
-          title="Editar Perfil"
+          title="Barbeiros"
           type="primary"
           onPress={() => {
             props.navigation.navigate('editProfile');
           }}
         />
         <Button
-          title="Redefinir Senha"
+          title="Clientes"
           type="primary"
           onPress={() => {
             props.navigation.navigate('resetPassword');
           }}
         />
         <Button
-          title="Excluir Conta"
+          title="Serviços e Valores"
           type="danger"
           onPress={() => showModal('delete')}
         />
@@ -129,7 +119,7 @@ export default function Profile(props) {
         confirmButtonText={modalAction === 'delete' ? 'Excluir' : 'Sair'}
         confirmButtonDisabled={modalAction === 'delete' && !password}
       >
-         {showPasswordInput && (
+        {showPasswordInput && (
           <TextInput
             style={styles.passwordInput}
             secureTextEntry

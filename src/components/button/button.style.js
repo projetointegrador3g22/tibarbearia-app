@@ -17,5 +17,7 @@ export const styles = {
     color: COLORS.white,
     fontSize: FONT_SIZE.md,
     textAlign: 'center',
+    marginVertical: "auto",
+    marginHorizontal: "auto",
   },
 };

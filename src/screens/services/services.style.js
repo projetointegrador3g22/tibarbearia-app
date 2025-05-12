@@ -44,6 +44,7 @@ export const styles = {
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 5,
   },
 
   checked: {
@@ -52,7 +53,9 @@ export const styles = {
 
   service: {
     fontSize: FONT_SIZE.md,
-    color: COLORS.gray3,
+    color: COLORS.gray1,
+    flex: 1,
+    paddingLeft: 10,
   },
 
   containerTotalPrice: {
@@ -78,4 +81,26 @@ export const styles = {
     fontWeight: 'bold',
     fontSize: FONT_SIZE.md,
   },
+
+  disabledService: {
+    color: COLORS.gray4,
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
+  notAvailable: {
+    color: '#ff4444',
+    fontSize: 12,
+  },
+  available: {
+    color: 'green',
+    fontSize: 12,
+  },
+  disabledButton: {
+    backgroundColor: '#cccccc',
+  },
+  whatsapp: {
+    fontSize: 16,
+    color: '#25D366',
+    marginTop: 5,
+  }
 };

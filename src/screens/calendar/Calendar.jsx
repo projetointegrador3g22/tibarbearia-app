@@ -1,53 +1,95 @@
-import { Alert, FlatList, Text, View } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Text,
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 import { styles } from './calendar.style';
 import Appointment from '../../components/appointment/Appointment';
-import icon from '../../constants/icon';
-import API from '../../constants/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import ModalCustom from '../../components/modal/ModalCustom';
+import { AuthContext } from '../../context/auth';
+import icon from '../../constants/icon';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Calendar() {
+export default function Calendar(props) {
+  const { getAppointments, deleteAppointment, user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalText, setModalText] = useState('');
-  const [appointmentToDelete, setAppointmentToDelete] = useState(null); // Armazena o ID do agendamento a deletar
+  const [appointmentToDelete, setAppointmentToDelete] = useState(null);
+  const [hideText, setHideText] = useState(false);
+  const translateX = useRef(new Animated.Value(0)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
 
+  // Carrega os agendamentos quando a tela recebe foco
   useFocusEffect(
     useCallback(() => {
-      getAppointments();
+      const loadAppointments = async () => {
+        try {
+          setLoading(true);
+          const appointmentsData = await getAppointments();
+          setAppointments(appointmentsData);
+        } catch (error) {
+          console.error('Erro ao carregar agendamentos:', error);
+          Alert.alert('Erro', 'Não foi possível carregar os agendamentos');
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      loadAppointments();
     }, []),
   );
 
-  async function getAppointments() {
-    try {
-      const response = await API.get('/appointments');
-      if (response.data) {
-        console.log('Agendamentos:', response.data);
-        setAppointments(response.data);
-      }
-    } catch (error) {
-      console.log('Erro ao buscar agendamentos:', error);
-    }
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      Animated.parallel([
+        Animated.timing(translateX, {
+          toValue: 50, // move para a direita
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 0, // desaparece
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setHideText(true); // depois da animação, remove o texto
+      });
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   async function handleDeleteAppointment() {
     try {
-      const response = await API.delete(`/appointments/${appointmentToDelete}`);
-      Alert.alert('Agendamento cancelado com sucesso!');
-      getAppointments();
+      await deleteAppointment(appointmentToDelete);
+      // Atualiza a lista após deletar
+      const updatedAppointments = await getAppointments();
+      setAppointments(updatedAppointments);
+      Alert.alert('Sucesso', 'Agendamento cancelado com sucesso!');
     } catch (error) {
-      console.log('Erro ao deletar agendamento:', error);
+      console.error('Erro ao deletar agendamento:', error);
+      Alert.alert('Erro', 'Não foi possível cancelar o agendamento');
     } finally {
-      setIsModalVisible(false); // Fecha o modal independentemente do resultado
+      setIsModalVisible(false);
+      setAppointmentToDelete(null);
     }
   }
 
-  const showModal = (id_appointment) => {
-    setModalText('Deseja cancelar este agendamento?');
+  const showModal = (agendamentoId) => {
+    setModalText(
+      'Deseja realmente excluir este agendamento?\nEsta ação não pode ser desfeita!',
+    );
+    setAppointmentToDelete(agendamentoId);
     setIsModalVisible(true);
-    setAppointmentToDelete(id_appointment); // Define o ID do agendamento a deletar
   };
 
   const handleConfirm = () => {
@@ -58,29 +100,95 @@ export default function Calendar() {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setAppointmentToDelete(null); // Limpa o ID se o usuário cancelar
+    setAppointmentToDelete(null);
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2E66E7" />
+      </View>
+    );
+  }
+
+  const handleNewAppointment = () => {
+    if (user.perfil === 'Barbeiro') {
+      props.navigation.navigate('clients', {
+        agendar: true,
+      });
+    }
+    if (user.perfil === 'Cliente') {
+      props.navigation.navigate('main', { screen: 'Barbeiros' });
+    }
+  };
+
+  const newAppointmentButton = (
+    <TouchableOpacity
+      style={styles.iconPlusContainer}
+      onPress={handleNewAppointment}
+    >
+      <FontAwesome
+        name="plus-circle"
+        size={25}
+        color="black"
+        style={styles.iconPlus}
+      />
+      {!hideText && (
+        <Animated.Text
+          style={[
+            styles.textPlus,
+            {
+              transform: [{ translateX }],
+              opacity,
+            },
+          ]}
+        >
+          Novo Agendamento
+        </Animated.Text>
+      )}
+    </TouchableOpacity>
+  );
+
+  if (appointments.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Nenhum agendamento encontrado</Text>
+        {newAppointmentButton}
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
-      data={appointments}
-      keyExtractor={(appointment) => appointment.id_appointment}
-      showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => (
-        <Appointment
-          id_appointment={item.id_appointment}
-          name={item.barber}
-          services={item.service}
-          date={item.date}
-          time={item.hour}
-          price={item.total_price}
-          dateIcon={icon.dateIcon}
-          timeIcon={icon.timeIcon}
-          onPress={() => showModal(item.id_appointment)}
-        />
-      )}
-    />
+        data={appointments}
+        keyExtractor={(item) => item.agendamentoId}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <Appointment
+            id_appointment={item.agendamentoId}
+            personIcon={
+              user.perfil === 'Barbeiro' ? icon.userIcon : icon.cutIcon
+            }
+            name={
+              user.perfil === 'Barbeiro' ? item.clienteNome : item.barbeiroNome
+            }
+            services={item.servicos
+              .map((service) => service.descricao)
+              .join(', ')}
+            date={item.data}
+            time={item.hora}
+            price={item.precoTotal}
+            dateIcon={icon.dateIcon}
+            timeIcon={icon.timeIcon}
+            onPress={() => showModal(item.agendamentoId)}
+            delete={icon.deleteIcon}
+            edit={user.perfil === 'Barbeiro' && icon.editIcon}
+            check={user.perfil === 'Barbeiro' && icon.checkIcon}
+          />
+        )}
+        contentContainerStyle={styles.listContent}
+      />
 
       <ModalCustom
         isVisible={isModalVisible}
@@ -89,7 +197,10 @@ export default function Calendar() {
         text={modalText}
         cancelButtonText="Cancelar"
         confirmButtonText="Confirmar"
+        confirmButtonType="danger"
       />
+
+      {newAppointmentButton}
     </View>
   );
 }

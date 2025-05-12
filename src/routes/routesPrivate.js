@@ -5,10 +5,18 @@ import Schedule from '../screens/schedule/Schedule';
 import { COLORS } from '../constants/theme';
 import EditProfile from '../screens/profile/EditProfile';
 import ResetPassword from '../screens/profile/ResetPassword';
+import Clients from '../screens/admin/clients/Clients';
+import AddClient from '../screens/admin/clients/AddClient';
+import Barbers from '../screens/admin/barbers/Barbers';
+import AddBarber from '../screens/admin/barbers/AddBarber';
+import ServicesAndValues from '../screens/admin/servicesAndValues/ServicesAndValues';
+import { AuthContext } from '../context/auth';
+import { useContext } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 export default function RoutesPrivate() {
+  const { user } = useContext(AuthContext);
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -22,7 +30,7 @@ export default function RoutesPrivate() {
         name="services"
         component={Services}
         options={{
-          headerTitle: 'Serviços',
+          headerTitle: user.perfil === 'Cliente' ? 'Serviços' : 'Novo agendamento',
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerTintColor: COLORS.black,
@@ -35,7 +43,7 @@ export default function RoutesPrivate() {
         name="schedule"
         component={Schedule}
         options={{
-          headerTitle: 'Fazer agendamento',
+          headerTitle: 'Data e Horário',
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerTintColor: COLORS.blue,
@@ -56,6 +64,76 @@ export default function RoutesPrivate() {
         component={ResetPassword}
         options={{
           headerTitle: 'Redefinir Senha',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="clients"
+        component={Clients}
+        options={{
+          headerTitle: 'Clientes',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="addClient"
+        component={AddClient}
+        options={{
+          headerTitle: 'Adicionar Cliente',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="editClient"
+        component={AddClient}
+        options={{
+          headerTitle: 'Editar Cliente',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="barbers"
+        component={Barbers}
+        options={{
+          headerTitle: 'Barbeiros',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="addBarber"
+        component={AddBarber}
+        options={{
+          headerTitle: 'Adicionar Barbeiro',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="editBarber"
+        component={AddBarber}
+        options={{
+          headerTitle: 'Editar Barbeiro',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTintColor: COLORS.blue,
+        }}
+      />
+      <Stack.Screen
+        name="servicesAndValues"
+        component={ServicesAndValues}
+        options={{
+          headerTitle: 'Serviços e Valores',
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           headerTintColor: COLORS.blue,

@@ -8,16 +8,16 @@ export default function RoutesOpen() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="account"
-        component={Account}
+        name="login"
+        component={Login}
         options={{
           headerShown: false,
         }}
       />
 
       <Stack.Screen
-        name="login"
-        component={Login}
+        name="account"
+        component={Account}
         options={{
           headerShown: false,
         }}

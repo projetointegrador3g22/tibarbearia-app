@@ -4,10 +4,13 @@ export const styles = {
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     justifyContent: 'space-between',
+  },
+
+  calendar: {
+    flex: 1,
   },
 
   theme: {
@@ -17,7 +20,7 @@ export const styles = {
     arrowColor: COLORS.blue,
   },
   textHour: {
-    fontSize: FONT_SIZE.xl,
+    fontSize: FONT_SIZE.lg,
     fontWeight: 'semibold',
     color: COLORS.gray2,
     marginTop: 20,
@@ -25,5 +28,32 @@ export const styles = {
 
   containerHour: {
     margin: 'auto',
+  },
+
+  containerTotalPrice: {
+    padding: 20,
+  },
+
+  totalPrice: {
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+
+  button: {
+    backgroundColor: '#2E66E7',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: '80%',
+    alignSelf: 'center',
+  },
+
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: FONT_SIZE.md,
+  },
+  disabledButton: {
+    backgroundColor: '#cccccc',
   },
 };

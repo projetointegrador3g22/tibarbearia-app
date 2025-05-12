@@ -16,11 +16,19 @@ export const styles = {
     padding: 12,
     borderWidth: 1,
     borderColor: COLORS.gray4,
+    marginBottom: 10,
   },
-  name: {
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  name:{
     fontSize: FONT_SIZE.md,
     color: COLORS.gray1,
   },
+
   service: {
     fontSize: FONT_SIZE.sm,
     color: COLORS.gray3,
@@ -41,8 +49,15 @@ export const styles = {
   },
   containerButton: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
+
+  button: {
+    marginHorizontal: 5,
+    width: '25%',
+  },
+
   icon: {
     marginRight: 5,
   },
