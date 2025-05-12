@@ -56,4 +56,9 @@ senha => 123456
 
 Alguns ajustes ainda estão em andamento. Por esse motivo algumas funcionalidades poderão falhar.
 
-Obs.: caso dê alguma falha e aplicação "quebre", no terminal do VS Code que está rodando o servidor (não pare utilizando CTRL + C), digite a tecla "R" que o projeto será recarregado novamente na tela do celular.
+Obs.: caso dê alguma falha e a aplicação "quebre", no terminal do VS Code que está rodando o servidor (não pare utilizando CTRL + C), digite a tecla "R" que o projeto será recarregado novamente na tela do celular.
+
+Caso queira testar em mais de um celular, pode escanear o mesmo QR code no outro aparelho (desde que o mesmo tenha o Expo Go instalado na versão do SDK 52 e esteja na mesma rede do projeto).
+
+ATENÇÃO!!!!
+NÃO FAÇA ALTERAÇÕES NAS FUNÇÕES E MUITO MENOS NAS CONFIGURAÇÕES DO FIREBASE QUE ESTÃO NO ARQUIVO "firebase.js" POIS AFETAM DIRETAMENTE O BANCO DE DADOS REAL QUE ESTÁ ONLINE.
