@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "528116037691",
+    "project_id": "tibarbearia",
+    "storage_bucket": "tibarbearia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528116037691:android:a3182e5d793450eb14c41e",
+        "android_client_info": {
+          "package_name": "com.tibarbearia.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528116037691-jir6tn5ip0hv7dfdfuhvg4mcofsg99iv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABQhgi3655hQCyjrgQF-wam3sdv1QDlyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528116037691-jir6tn5ip0hv7dfdfuhvg4mcofsg99iv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "528116037691-1e057f1tvpod4pse3ivn4vka2t4903m2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tibarbearia.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
